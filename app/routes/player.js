@@ -39,7 +39,7 @@ module.exports = {
                 // check the filetype before uploading it
                 if (uploadedFile.mimetype === 'image/png' || uploadedFile.mimetype === 'image/jpeg' || uploadedFile.mimetype === 'image/gif') {
                     // upload the file to the /public/assets/img directory
-                    uploadedFile.mv(`public/assets/img/${image_name}`, (err ) => {
+                    uploadedFile.mv(`/app/public/assets/img/${image_name}`, (err ) => {
                         if (err) {
                             return res.status(500).send(err);
                         }

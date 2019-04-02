@@ -1,0 +1,28 @@
+version: '3'
+
+volumes:
+  db_data:
+services:
+  db:
+    image: mysql:latest
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root  
+      MYSQL_DATABASE: techchat  
+      MYSQL_USER: techchat  
+      MYSQL_PASSWORD: techchat@2019
+  app:
+    build: web
+    restart: always
+    ports:
+      - "2000:2000"
+    depends_on:
+      - db
+    links:
+      - db:db
+    volumes:
+      - ./app:/app
+    command: [sh, -c, "cd /app && npm install && nodemon app.js"] 
